@@ -1,0 +1,16 @@
+#ddev-generated
+# Canvas AI tooling — safe additions only.
+# Does NOT set type, docroot, php_version, webserver_type, database, or omit_containers
+# so it can be installed alongside any existing DDEV project config.
+
+hooks:
+  post-start:
+    # Claude Code: initialise .claude.json and symlink ~/.claude into the project
+    - exec: "[[ -f /var/www/html/.ddev/claude-code/.claude.json ]] || echo '{}' > /var/www/html/.ddev/claude-code/.claude.json"
+    - exec: "rm ~/.claude.json || true; ln -s /var/www/html/.ddev/claude-code/.claude.json ~/.claude.json"
+    - exec: "rm -rf ~/.claude || true; mkdir -p /var/www/html/.ddev/claude-code/.claude && ln -s /var/www/html/.ddev/claude-code/.claude ~/.claude"
+    # canvas-sync: keep local Canvas components in sync
+    - exec-host: "npm --prefix . run canvas:upload:local 2>/dev/null || true"
+
+web_environment:
+  - GLAB_CONFIG_DIR=/var/www/html/.ddev/.glab-cli/

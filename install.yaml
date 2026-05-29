@@ -1,0 +1,18 @@
+name: canvas
+project_files:
+  - .ddev/config.canvas.yaml
+  - .ddev/config.canvas-storybook-hostname.yaml
+  - .ddev/docker-compose.canvas-storybook.yaml
+  - .ddev/commands/web/claude
+  - .ddev/commands/web/glab
+  - .ddev/commands/web/playwright-cli
+  - .ddev/web-build/Dockerfile.canvas
+  - .ddev/nginx_full/storybook-proxy.conf
+global_files: []
+pre_install_actions: []
+post_install_actions:
+  - "echo ''"
+  - "echo 'Canvas addon installed.'"
+  - "echo 'Run: ddev restart'"
+  - "echo 'Then open: https://storybook.{{ .Name }}.ddev.site'"
+removal_actions: []

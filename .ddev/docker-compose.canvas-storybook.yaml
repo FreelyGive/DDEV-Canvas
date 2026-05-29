@@ -1,0 +1,27 @@
+#ddev-generated
+services:
+  storybook:
+    container_name: ddev-${DDEV_SITENAME}-storybook
+    image: node:20
+    restart: "no"
+    working_dir: /var/www/html
+    volumes:
+      - ../:/var/www/html:cached
+      # Shadow the host node_modules with a container-local volume so
+      # platform-specific binaries (esbuild, etc.) are built for Linux.
+      - canvas-storybook-node-modules:/var/www/html/node_modules
+    command: >
+      bash -c '
+        npm ci --prefer-offline --silent &&
+        rm -rf node_modules/.cache/storybook &&
+        npm run dev -- --host=0.0.0.0
+      '
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    expose:
+      - "6006"
+    environment:
+      - CANVAS_SITE_URL=http://web
+volumes:
+  canvas-storybook-node-modules:

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#ddev-generated
+## Description: Run playwright-cli command
+## Usage: playwright-cli [options] [command]
+## Example: "ddev playwright-cli open"
+
+playwright-cli "$@"
