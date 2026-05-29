@@ -1,12 +1,11 @@
 name: canvas
 project_files:
   - .ddev/config.canvas.yaml
-  - .ddev/config.canvas-storybook-hostname.yaml
   - .ddev/docker-compose.canvas-storybook.yaml
+  - .ddev/traefik/config/canvas-storybook.yaml
   - .ddev/commands/web/claude
   - .ddev/commands/web/glab
   - .ddev/web-build/Dockerfile.canvas
-  - .ddev/nginx_full/storybook-proxy.conf
   - .ddev/claude-code/.gitignore
 global_files: []
 pre_install_actions: []

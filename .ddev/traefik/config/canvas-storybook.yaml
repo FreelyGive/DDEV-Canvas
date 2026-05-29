@@ -1,0 +1,20 @@
+#ddev-generated
+http:
+  routers:
+    canvas-storybook-http:
+      entrypoints:
+        - http-80
+      rule: "HostRegexp(`^storybook\\.my-project\\.ddev\\.site$`)"
+      service: "canvas-storybook"
+      tls: false
+    canvas-storybook-https:
+      entrypoints:
+        - http-443
+      rule: "HostRegexp(`^storybook\\.my-project\\.ddev\\.site$`)"
+      service: "canvas-storybook"
+      tls: true
+  services:
+    canvas-storybook:
+      loadBalancer:
+        servers:
+          - url: "http://ddev-my-project-storybook:6006"

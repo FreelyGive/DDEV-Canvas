@@ -1,5 +1,0 @@
-#ddev-generated
-# Adds the storybook subdomain hostname for this project.
-# Replace "my-project" with your actual DDEV project name if not using the installer.
-additional_hostnames:
-  - storybook.my-project
