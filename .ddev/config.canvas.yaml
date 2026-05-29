@@ -9,8 +9,17 @@ hooks:
     - exec: "[[ -f /var/www/html/.ddev/claude-code/.claude.json ]] || echo '{}' > /var/www/html/.ddev/claude-code/.claude.json"
     - exec: "rm ~/.claude.json || true; ln -s /var/www/html/.ddev/claude-code/.claude.json ~/.claude.json"
     - exec: "rm -rf ~/.claude || true; mkdir -p /var/www/html/.ddev/claude-code/.claude && ln -s /var/www/html/.ddev/claude-code/.claude ~/.claude"
-    # canvas-sync: keep local Canvas components in sync
-    - exec-host: "npm --prefix . run canvas:upload:local 2>/dev/null || true"
+    # agent-browser: fetch latest skill definition into .claude/skills/
+    - exec: "mkdir -p /var/www/html/.claude/skills/agent-browser && agent-browser skills get core --full > /var/www/html/.claude/skills/agent-browser/SKILL.md 2>/dev/null || true"
+    # mkcert cert store setup for agent-browser (Chromium NSS)
+    - exec: |
+        set -eu
+        mkdir -p "$HOME/.pki/nssdb"
+        [ -f "$HOME/.pki/nssdb/cert9.db" ] || certutil -d "sql:$HOME/.pki/nssdb" -N --empty-password
+        : > /tmp/nss-empty-pw
+        certutil -d "sql:$HOME/.pki/nssdb" -A -t "C,," -n mkcert-ca -i "$(mkcert -CAROOT)/rootCA.pem" -f /tmp/nss-empty-pw
+        rm -f /tmp/nss-empty-pw
 
 web_environment:
   - GLAB_CONFIG_DIR=/var/www/html/.ddev/.glab-cli/
+  - AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/chromium

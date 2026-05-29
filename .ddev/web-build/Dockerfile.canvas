@@ -10,8 +10,13 @@ RUN curl -sSL "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/in
   && apt install -y glab \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Chromium OS dependencies for Playwright.
-RUN npx -y playwright install-deps chromium
+# Install agent-browser globally.
+# Chrome for Testing does not provide ARM64 Linux builds, so install Chromium
+# from the system package manager instead and point agent-browser at it.
+RUN npm install -g agent-browser
+RUN apt-get update && apt-get install -y --no-install-recommends chromium \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Add the mkcert certificate authority.
 RUN apt-get update && apt-get install -y libnss3-tools \
