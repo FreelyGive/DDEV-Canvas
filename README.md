@@ -7,8 +7,7 @@ Adds [Canvas Storybook AI](https://canvas.drupalstarforge.ai) tooling to an exis
 - **Storybook service** — runs Storybook in a separate Node 20 container at `https://storybook.<project>.ddev.site`
 - **Claude Code** — installs Claude Code inside the web container with isolated config
 - **glab CLI** — GitLab CLI inside the container
-- **Playwright CLI** — browser automation for component migration and testing
-- **Canvas sync hooks** — keeps local Canvas components in sync on container start
+- **agent-browser** — Chromium-based browser automation for component migration and testing
 
 ## Requirements
 
@@ -34,9 +33,8 @@ curl -fsSL https://canvas.drupalstarforge.ai/install.sh | bash
 ## Usage
 
 ```bash
-ddev claude          # Launch Claude Code inside the container
-ddev glab            # GitLab CLI
-ddev playwright-cli  # Playwright browser automation
+ddev claude   # Launch Claude Code inside the container
+ddev glab     # GitLab CLI
 ```
 
 Storybook starts automatically when DDEV starts. Access it at:
