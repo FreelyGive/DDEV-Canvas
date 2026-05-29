@@ -1,6 +1,7 @@
 name: canvas
 project_files:
   - .ddev/config.canvas.yaml
+  - .ddev/config.canvas-storybook-hostname.yaml
   - .ddev/docker-compose.canvas-storybook.yaml
   - .ddev/traefik/config/canvas-storybook.yaml
   - .ddev/commands/web/claude

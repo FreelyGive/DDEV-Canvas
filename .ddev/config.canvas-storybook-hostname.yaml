@@ -1,0 +1,5 @@
+#ddev-generated
+# Adds storybook subdomain to the ddev TLS certificate.
+# The actual routing is handled by .ddev/traefik/config/canvas-storybook.yaml
+additional_hostnames:
+  - storybook.my-project

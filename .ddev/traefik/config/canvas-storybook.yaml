@@ -5,12 +5,14 @@ http:
       entrypoints:
         - http-80
       rule: "HostRegexp(`^storybook\\.my-project\\.ddev\\.site$`)"
+      priority: 1000
       service: "canvas-storybook"
       tls: false
     canvas-storybook-https:
       entrypoints:
         - http-443
       rule: "HostRegexp(`^storybook\\.my-project\\.ddev\\.site$`)"
+      priority: 1000
       service: "canvas-storybook"
       tls: true
   services:
