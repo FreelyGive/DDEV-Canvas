@@ -23,5 +23,11 @@ services:
       - "6006"
     environment:
       - CANVAS_SITE_URL=http://web
+    networks:
+      - default
+networks:
+  default:
+    name: ddev_${DDEV_SITENAME}_default
+    external: true
 volumes:
   canvas-storybook-node-modules:
