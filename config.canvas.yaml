@@ -11,8 +11,8 @@ hooks:
     - exec: "rm -rf ~/.claude || true; mkdir -p /var/www/html/.ddev/claude-code/.claude && ln -s /var/www/html/.ddev/claude-code/.claude ~/.claude"
     # agent-browser: fetch latest skill definition into .claude/skills/
     - exec: "mkdir -p /var/www/html/.claude/skills/agent-browser && agent-browser skills get core --full > /var/www/html/.claude/skills/agent-browser/SKILL.md 2>/dev/null || true"
-    # Install npm dependencies if node_modules is missing (ensures canvas CLI is available)
-    - exec: "[ -d /var/www/html/node_modules/.bin ] || (cd /var/www/html && npm install)"
+    # Install npm dependencies if canvas CLI is missing (ensures canvas upload commands work)
+    - exec: "[ -x /var/www/html/node_modules/.bin/canvas ] || (cd /var/www/html && npm install)"
     # mkcert cert store setup for agent-browser (Chromium NSS)
     - exec: |
         set -eu
