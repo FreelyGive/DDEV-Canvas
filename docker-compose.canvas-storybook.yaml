@@ -12,7 +12,7 @@ services:
       - canvas-storybook-node-modules:/var/www/html/node_modules
     command: >
       bash -c '
-        npm ci --prefer-offline --silent &&
+        npm install --silent &&
         npm run dev -- --host=0.0.0.0
       '
     labels:
