@@ -1,9 +1,9 @@
 #ddev-generated
 
-# Install Claude Code.
-RUN curl -fsSL https://claude.ai/install.sh | sudo -u ${username} bash \
+# Install Claude Code (npm is already available in the base image).
+RUN npm install -g @anthropic-ai/claude-code \
   && sudo -u ${username} mkdir -p /home/${username}/bin \
-  && sudo -u ${username} ln -s /home/${username}/.local/bin/claude /home/${username}/bin/claude
+  && ln -sf "$(which claude)" /home/${username}/bin/claude
 
 # Install glab CLI.
 RUN curl -sSL "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash \
