@@ -4,12 +4,12 @@ services:
     container_name: ddev-${DDEV_SITENAME}-storybook
     image: node:20
     restart: "no"
-    working_dir: /var/www/html
+    working_dir: /var/www/html/storybook
     volumes:
       - ../:/var/www/html:cached
       # Shadow the host node_modules with a container-local volume so
       # platform-specific binaries (esbuild, etc.) are built for Linux.
-      - canvas-storybook-node-modules:/var/www/html/node_modules
+      - canvas-storybook-node-modules:/var/www/html/storybook/node_modules
     command: >
       bash -c '
         npm install --silent &&
