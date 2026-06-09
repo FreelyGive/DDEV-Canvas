@@ -14,5 +14,5 @@ post_install_actions:
   - "echo ''"
   - "echo 'Canvas addon installed.'"
   - "echo 'Run: ddev restart'"
-  - "echo 'Then open: https://storybook.{{ .Name }}.ddev.site'"
+  - "echo 'Then open: https://storybook.<project-name>.ddev.site  (run `ddev describe` for your exact URL)'"
 removal_actions: []
