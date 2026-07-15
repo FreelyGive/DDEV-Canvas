@@ -5,10 +5,14 @@ RUN npm install -g @anthropic-ai/claude-code \
   && sudo -u ${username} mkdir -p /home/${username}/bin \
   && ln -sf "$(which claude)" /home/${username}/bin/claude
 
-# Install glab CLI.
-RUN curl -sSL "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash \
-  && apt install -y glab \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install glab CLI from the official gitlab.com release .deb. (The wakemeops
+# apt pool previously used here 404s on its indexed glab package, failing
+# every image build.)
+RUN GLAB_ARCH=$(dpkg --print-architecture) \
+  && GLAB_VER=$(curl -s "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases" | grep -oP '"tag_name":"v\K[0-9.]+' | head -1) \
+  && curl -sL "https://gitlab.com/gitlab-org/cli/-/releases/v${GLAB_VER}/downloads/glab_${GLAB_VER}_linux_${GLAB_ARCH}.deb" -o /tmp/glab.deb \
+  && apt-get update && apt install -y /tmp/glab.deb \
+  && rm /tmp/glab.deb && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install agent-browser globally.
 # Chrome for Testing does not provide ARM64 Linux builds, so install Chromium
